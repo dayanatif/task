@@ -1,0 +1,37 @@
+@model List<TSManager.Models.EmailUser>
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h2 class="fw-bold">Email Users</h2>
+        <a class="btn btn-primary" asp-action="Create">+ Add User</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <table class="table table-striped mb-0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Company</th>
+                    <th>Storage (GB)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var e in Model)
+            {
+                <tr>
+                    <td>@e.FirstName @e.LastName</td>
+                    <td>@e.EmailAddress</td>
+                    <td>@e.Company</td>
+                    <td>@e.StorageGb</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@e.Id">Edit</a>
+                        <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@e.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

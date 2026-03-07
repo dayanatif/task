@@ -1,0 +1,15 @@
+@model TSManager.Models.EmailUser
+
+<div class="container py-4">
+    <h2 class="fw-bold mb-3">Delete Email User</h2>
+
+    <div class="alert alert-warning">
+        Are you sure you want to delete <strong>@Model.EmailAddress</strong>?
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button class="btn btn-danger">Yes, Delete</button>
+        <a class="btn btn-outline-secondary" asp-action="Index">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,30 @@
+@model TSManager.Models.DomainDetail
+
+<div class="container py-4">
+    <h2 class="fw-bold mb-3">Delete Domain</h2>
+
+    <div class="alert alert-warning">
+        Are you sure you want to delete <strong>@Model.DomainName</strong>?
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Registrar</dt>
+                <dd class="col-sm-9">@Model.Registrar</dd>
+
+                <dt class="col-sm-3">Renewal Date</dt>
+                <dd class="col-sm-9">@Model.RenewalDate.ToString("yyyy-MM-dd")</dd>
+
+                <dt class="col-sm-3">Amount</dt>
+                <dd class="col-sm-9">@Model.Amount.ToString("0.00")</dd>
+            </dl>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button class="btn btn-danger">Yes, Delete</button>
+                <a class="btn btn-outline-secondary" asp-action="Index">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

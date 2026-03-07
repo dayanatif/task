@@ -1,0 +1,113 @@
+@model TSManager.Models.SoftwareSubscription
+@{
+    ViewData["Title"] = "Add Software Subscription";
+}
+
+<div class="container py-4">
+    <h2 class="fw-bold mb-3">Add Software Subscription</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Software</label>
+                        <input class="form-control" asp-for="Software" />
+                        <span class="text-danger" asp-validation-for="Software"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Category</label>
+                        <input class="form-control" asp-for="Category" />
+                        <span class="text-danger" asp-validation-for="Category"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Plan Type</label>
+                        <select class="form-select" asp-for="PlanType" id="planType">
+                            <option value="">-- Select plan --</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Yearly">Yearly</option>
+                        </select>
+                        <span class="text-danger" asp-validation-for="PlanType"></span>
+
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Amount</label>
+                        <input class="form-control" asp-for="Amount" />
+                        <span class="text-danger" asp-validation-for="Amount"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Subscribed Email</label>
+                        <input class="form-control" asp-for="SubscribedEmail" />
+                        <span class="text-danger" asp-validation-for="SubscribedEmail"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Subscribed Date</label>
+                        <input class="form-control" asp-for="SubscribedDate" type="date" id="subscribedDate" />
+                        <span class="text-danger" asp-validation-for="SubscribedDate"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Renewal Date</label>
+                        <input class="form-control" asp-for="RenewalDate" type="date" id="renewalDate" />
+                        <span class="text-danger" asp-validation-for="RenewalDate"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <a class="btn btn-outline-secondary" asp-action="Index">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+    (function () {
+        function addDays(date, days) {
+            const d = new Date(date);
+            d.setDate(d.getDate() + days);
+            return d;
+        }
+        function addMonths(date, months) {
+            const d = new Date(date);
+            d.setMonth(d.getMonth() + months);
+            return d;
+        }
+
+        function formatDate(d) {
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function calculateRenewal() {
+            const plan = document.getElementById('planType')?.value;
+            const sub = document.getElementById('subscribedDate')?.value;
+            const renewalInput = document.getElementById('renewalDate');
+
+            if (!plan || !sub || !renewalInput) return;
+
+            let renewal;
+            if (plan === "Weekly") renewal = addDays(sub, 7);
+            else if (plan === "Monthly") renewal = addMonths(sub, 1);
+            else if (plan === "Yearly") renewal = addMonths(sub, 12);
+            else return;
+
+            renewalInput.value = formatDate(renewal);
+        }
+
+        document.getElementById('planType')?.addEventListener('change', calculateRenewal);
+        document.getElementById('subscribedDate')?.addEventListener('change', calculateRenewal);
+
+        // run once on page load (useful for Edit)
+        calculateRenewal();
+    })();
+    </script>
+
+}

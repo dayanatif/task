@@ -1,0 +1,65 @@
+@model TSManager.Models.SoftwareSubscription
+@{
+    ViewData["Title"] = "Edit Software Subscription";
+}
+
+<div class="container py-4">
+    <h2 class="fw-bold mb-3">Edit Software Subscription</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Software</label>
+                        <input class="form-control" asp-for="Software" />
+                        <span class="text-danger" asp-validation-for="Software"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Category</label>
+                        <input class="form-control" asp-for="Category" />
+                        <span class="text-danger" asp-validation-for="Category"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Plan Type</label>
+                        <input class="form-control" asp-for="PlanType" />
+                        <span class="text-danger" asp-validation-for="PlanType"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Amount</label>
+                        <input class="form-control" asp-for="Amount" />
+                        <span class="text-danger" asp-validation-for="Amount"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Subscribed Email</label>
+                        <input class="form-control" asp-for="SubscribedEmail" />
+                        <span class="text-danger" asp-validation-for="SubscribedEmail"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Subscribed Date</label>
+                        <input class="form-control" asp-for="SubscribedDate" type="date" />
+                        <span class="text-danger" asp-validation-for="SubscribedDate"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Renewal Date</label>
+                        <input class="form-control" asp-for="RenewalDate" type="date" />
+                        <span class="text-danger" asp-validation-for="RenewalDate"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <button class="btn btn-primary" type="submit">Save Changes</button>
+                    <a class="btn btn-outline-secondary" asp-action="Index">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

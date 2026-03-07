@@ -1,0 +1,30 @@
+@model List<Microsoft.AspNetCore.Identity.IdentityUser>
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h2 class="fw-bold">Users</h2>
+        <a class="btn btn-primary" asp-action="CreateUser">+ Create User</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <table class="table table-striped mb-0">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Email Confirmed</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var u in Model)
+            {
+                <tr>
+                    <td>@u.Email</td>
+                    <td>@u.UserName</td>
+                    <td>@(u.EmailConfirmed ? "Yes" : "No")</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+@model TSManager.ViewModels.CreateUserViewModel
+
+<div class="container py-4">
+    <h2 class="fw-bold mb-3">Create User</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="CreateUser" method="post">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Email</label>
+                        <input class="form-control" asp-for="Email" />
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Password</label>
+                        <input class="form-control" asp-for="Password" type="password" />
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Role</label>
+                        <select class="form-select" asp-for="Role">
+                            <option value="User">User</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                        <span class="text-danger" asp-validation-for="Role"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <button class="btn btn-primary" type="submit">Create</button>
+                    <a class="btn btn-outline-secondary" asp-action="Users">Cancel</a>
+                </div>
+
+                <div class="text-danger mt-3">
+                    @Html.ValidationSummary()
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,9 @@
+C:\Study\mohid\TSManager\TSManager\obj\Debug\net10.0\TSManager.csproj.AssemblyReference.cache
+C:\Study\mohid\TSManager\TSManager\obj\Debug\net10.0\rpswa.dswa.cache.json
+C:\Study\mohid\TSManager\TSManager\obj\Debug\net10.0\TSManager.GeneratedMSBuildEditorConfig.editorconfig
+C:\Study\mohid\TSManager\TSManager\obj\Debug\net10.0\TSManager.AssemblyInfoInputs.cache
+C:\Study\mohid\TSManager\TSManager\obj\Debug\net10.0\TSManager.AssemblyInfo.cs
+C:\Study\mohid\TSManager\TSManager\obj\Debug\net10.0\TSManager.csproj.CoreCompileInputs.cache
+C:\Study\mohid\TSManager\TSManager\obj\Debug\net10.0\TSManager.MvcApplicationPartsAssemblyInfo.cache
+C:\Study\mohid\TSManager\TSManager\obj\Debug\net10.0\TSManager.RazorAssemblyInfo.cache
+C:\Study\mohid\TSManager\TSManager\obj\Debug\net10.0\TSManager.RazorAssemblyInfo.cs

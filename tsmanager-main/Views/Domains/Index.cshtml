@@ -1,0 +1,39 @@
+@model List<TSManager.Models.DomainDetail>
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h2 class="fw-bold">Domains</h2>
+        <a class="btn btn-primary" asp-action="Create">+ Add Domain</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <table class="table table-striped mb-0">
+            <thead>
+                <tr>
+                    <th>Domain</th>
+                    <th>Registrar</th>
+                    <th>Auto Renew</th>
+                    <th>Renewal</th>
+                    <th>Amount</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var d in Model)
+            {
+                <tr>
+                    <td>@d.DomainName</td>
+                    <td>@d.Registrar</td>
+                    <td>@(d.AutoRenew ? "Yes" : "No")</td>
+                    <td>@d.RenewalDate.ToString("yyyy-MM-dd")</td>
+                    <td>@d.Amount.ToString("0.00")</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@d.Id">Edit</a>
+                        <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@d.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
