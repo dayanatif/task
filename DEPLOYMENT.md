@@ -1,6 +1,24 @@
-# TSManager Docker Deployment on RHEL VM (with Traefik)
+# TSManager Docker Deployment on RHEL VM
 
-This guide covers deploying TSManager on a Linux RHEL VM using Docker, with Traefik as the reverse proxy. **It uses your existing Traefik network** to avoid conflicts.
+---
+
+## Deploy Without Domain (Simplest)
+
+No Traefik, no domain. Access the app via **http://VM_IP:8080**
+
+```bash
+cd tsmanager
+cp env.example .env
+docker compose -f docker-compose.standalone.yml up -d --build
+```
+
+Then open **http://localhost:8080** (from the VM) or **http://YOUR_VM_IP:8080** (from another machine).
+
+---
+
+## Deploy With Traefik (Domain Required)
+
+Uses your existing Traefik network and requires a domain (e.g. tsmanager.yourdomain.com).
 
 ### Quick Start
 
@@ -10,7 +28,7 @@ docker network ls
 
 # 2. Update docker-compose.yml if your Traefik network has a different name
 
-# 3. Create .env from env.example and configure
+# 3. Create .env from env.example and set TRAEFIK_HOST
 cp env.example .env && nano .env
 
 # 4. Deploy
@@ -155,19 +173,16 @@ sudo dnf install mysql
 
 ## Useful Commands
 
+**Standalone (no domain):**
 ```bash
-# View logs
-sudo docker compose logs -f tsmanager
-
-# Stop
-sudo docker compose down
-
-# Stop and remove volumes (resets database)
-sudo docker compose down -v
-
-# Rebuild after code changes
-sudo docker compose up -d --build
+COMPOSE="-f docker-compose.standalone.yml"
+docker compose $COMPOSE logs -f tsmanager
+docker compose $COMPOSE down
+docker compose $COMPOSE down -v   # also removes database
+docker compose $COMPOSE up -d --build
 ```
+
+**With Traefik:** Omit the `-f` flag and use `docker compose` as normal.
 
 ---
 

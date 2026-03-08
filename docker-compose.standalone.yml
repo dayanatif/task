@@ -1,0 +1,50 @@
+# Deploy without domain or Traefik - access via http://VM_IP:8080
+services:
+  tsmanager:
+    build: .
+    container_name: tsmanager-app
+    ports:
+      - "8080:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=server=mysql;port=3306;database=${MYSQL_DATABASE:-tsmanager_db};user=${MYSQL_USER:-tsmanager_app};password=${MYSQL_PASSWORD:-TsManagerApp2025!};
+      - EmailSettings__SmtpHost=${SMTP_HOST:-smtp.gmail.com}
+      - EmailSettings__SmtpPort=${SMTP_PORT:-587}
+      - EmailSettings__SmtpUser=${SMTP_USER:-}
+      - EmailSettings__SmtpPass=${SMTP_PASS:-}
+      - EmailSettings__FromName=${SMTP_FROM_NAME:-TSManager}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - tsmanager-internal
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    container_name: tsmanager-mysql
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-tsmanager_db}
+      MYSQL_USER: ${MYSQL_USER:-tsmanager_app}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-TsManagerApp2025!}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-TsManagerRoot2025!}
+    volumes:
+      - tsmanager-mysql-data:/var/lib/mysql
+    networks:
+      - tsmanager-internal
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+networks:
+  tsmanager-internal:
+    driver: bridge
+
+volumes:
+  tsmanager-mysql-data:
